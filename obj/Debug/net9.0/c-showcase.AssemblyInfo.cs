@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("c-showcase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+40252b0cc7731e0b20013b1b222f22a99fe7d5cd")]
 [assembly: System.Reflection.AssemblyProductAttribute("c-showcase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("c-showcase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
