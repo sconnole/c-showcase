@@ -16,4 +16,7 @@
     </PackageReference>
   </ItemGroup>
 
+  <Target Name="BuildTailwind" BeforeTargets="Build">
+    <Exec Command="tailwindcss -i wwwroot/css/site.css -o wwwroot/css/output.css --minify" />
+  </Target>
 </Project>
