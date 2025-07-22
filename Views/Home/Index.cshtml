@@ -1,7 +1,67 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Welcome";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
+<section class="text-center py-24 px-4 sm:px-6 lg:px-8">
+    <h1 class="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+        Build faster. Launch smarter.
+    </h1>
+    <p class="mt-6 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+        Welcome to Showcase – a modern .NET MVC starter kit styled with Tailwind CSS.
+        Build clean, responsive, dark-mode-ready websites with minimal setup.
+    </p>
+    <div class="mt-8 flex justify-center gap-4">
+        <a href="#get-started" class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg transition">
+            Get Started
+        </a>
+        <a href="#features" class="inline-block text-indigo-600 dark:text-indigo-400 hover:underline font-medium px-6 py-3">
+            Learn More
+        </a>
+    </div>
+</section>
+
+<section id="features" class="bg-gray-50 dark:bg-gray-900 py-20 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto text-center">
+        <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+            Features
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 text-left">
+            <div>
+                <h3 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400">Tailwind CSS</h3>
+                <p class="text-gray-700 dark:text-gray-300">
+                    Easily customizable design system with utility-first classes. Supports dark mode out of the box.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400">.NET Core MVC</h3>
+                <p class="text-gray-700 dark:text-gray-300">
+                    Blazing-fast back-end framework with full Razor page support and modern tooling.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400">Hot Reload</h3>
+                <p class="text-gray-700 dark:text-gray-300">
+                    Quickly preview changes to your UI and logic during development.
+                </p>
+            </div>
+            <div>
+                <h3 class="text-xl font-semibold text-indigo-600 dark:text-indigo-400">Minimal Setup</h3>
+                <p class="text-gray-700 dark:text-gray-300">
+                    Clean layout and integrated Tailwind build make starting a new project fast and painless.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="get-started" class="py-20 px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+        Ready to build something great?
+    </h2>
+    <p class="text-gray-600 dark:text-gray-300 mb-6 max-w-xl mx-auto">
+        Kickstart your next project with this ASP.NET MVC + Tailwind starter. It's designed to help you go from idea to production fast.
+    </p>
+    <a href="#" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-8 py-4 rounded-lg transition">
+        View Documentation
+    </a>
+</section>

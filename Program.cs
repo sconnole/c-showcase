@@ -1,4 +1,13 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlite("Data Source=app.db"));
+builder.Services.AddDefaultIdentity<IdentityUser>(Options =>
+{
+    Options.SignIn.RequireConfirmedAccount = false;
+}).AddEntityFrameworkStores<ApplicationDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -17,6 +26,7 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+app.UseAuthentication();
 
 app.MapStaticAssets();
 

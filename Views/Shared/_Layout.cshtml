@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en" class="scroll-smooth" >
 <head>
     <meta charset="utf-8" />
@@ -9,17 +13,38 @@
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen flex flex-col">
     <header class="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm">
         <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            <a class="text-xl font-semibold text-indigo-600 dark:text-indigo-400" asp-area="" asp-controller="Home" asp-action="Index">
-                Showcase
-            </a>
-            <ul class="flex space-x-6">
-                <li>
-                    <a class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                </li>
-                <li>
-                    <a class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                </li>
-            </ul>
+            <div class="flex items-center space-x-8">
+                <a class="text-xl font-semibold text-indigo-600 dark:text-indigo-400" asp-area="" asp-controller="Home" asp-action="Index">
+                    Showcase
+                </a>
+                <ul class="flex space-x-6">
+                    <li>
+                        <a class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                    </li>
+                    <li>
+                        <a class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="flex items-center space-x-4">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <form method="post" asp-controller="Account" asp-action="Logout" class="inline">
+                        <button type="submit" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                            Logout
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <a asp-controller="Account" asp-action="Login" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                        Login
+                    </a>
+                    <a asp-controller="Account" asp-action="Register" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                        Register
+                    </a>
+                }
+            </div>
         </nav>
     </header>
 
