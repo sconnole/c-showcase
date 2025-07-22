@@ -1,0 +1,24 @@
+@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="max-w-4xl mx-auto p-6 min-h-screen bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    <h1 class="text-4xl font-extrabold mb-6">@Model.WelcomeMessage</h1>
+
+    <p class="mb-10 text-lg">
+        Logged in as: <span class="font-semibold">@Model.Email</span>
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        @foreach (var stat in Model.Stats)
+        {
+            <div
+                class="bg-indigo-100 dark:bg-indigo-900 rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+                <div class="text-indigo-900 dark:text-indigo-300 text-lg font-semibold mb-2">@stat.Key</div>
+                <div class="text-3xl font-bold">@stat.Value</div>
+            </div>
+        }
+    </div>
+</div>

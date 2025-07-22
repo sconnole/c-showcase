@@ -19,9 +19,12 @@ public class AccountController : Controller
     public IActionResult Login() => View();
 
     [HttpPost]
-    public async Task<IActionResult> Login(string email, string password)
+    public async Task<IActionResult> Login(LoginViewModel model)
     {
-        var result = await _signInManager.PasswordSignInAsync(email, password, false, false);
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
         if (result.Succeeded)
             return RedirectToAction("Index", "Dashboard");
 

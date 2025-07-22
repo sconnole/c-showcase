@@ -10,19 +10,19 @@
 
     <div>
         <label asp-for="Email" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Email</label>
-        <input asp-for="Email" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        <input asp-for="Email" required class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
         <span asp-validation-for="Email" class="text-red-600 text-sm"></span>
     </div>
 
     <div>
         <label asp-for="Password" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Password</label>
-        <input asp-for="Password" type="password" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        <input asp-for="Password" required type="password" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
         <span asp-validation-for="Password" class="text-red-600 text-sm"></span>
     </div>
 
     <div>
         <label asp-for="ConfirmPassword" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Confirm Password</label>
-        <input asp-for="ConfirmPassword" type="password" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
+        <input asp-for="ConfirmPassword" required type="password" class="mt-1 w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white" />
         <span asp-validation-for="ConfirmPassword" class="text-red-600 text-sm"></span>
     </div>
 
@@ -30,7 +30,3 @@
         Register
     </button>
 </form>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}

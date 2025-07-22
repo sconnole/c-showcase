@@ -28,12 +28,15 @@
             </div>
             <div class="flex items-center space-x-4">
                 @if (SignInManager.IsSignedIn(User))
-                {
-                    <form method="post" asp-controller="Account" asp-action="Logout" class="inline">
-                        <button type="submit" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
-                            Logout
-                        </button>
-                    </form>
+                {   
+                    <ul class="flex space-x-6">
+                        <li><a asp-controller="Dashboard" asp-action="Index" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Dashboard</a></li>
+                        <li class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
+                            <form method="post" asp-controller="Account" asp-action="Logout" class="inline">
+                                <button type="submit" class="text-gray-700 hover:text-indigo-600">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
                 }
                 else
                 {
