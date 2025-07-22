@@ -30,13 +30,17 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    public IActionResult Register() => View();
+    public IActionResult Register() => View(new RegisterViewModel());
 
     [HttpPost]
-    public async Task<IActionResult> Register(string email, string password)
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Register(RegisterViewModel model)
     {
-        var user = new IdentityUser { UserName = email, Email = email };
-        var result = await _userManager.CreateAsync(user, password);
+        if (!ModelState.IsValid)
+            return View(model);
+
+        var user = new IdentityUser { UserName = model.Email, Email = model.Email };
+        var result = await _userManager.CreateAsync(user, model.Password);
 
         if (result.Succeeded)
         {
