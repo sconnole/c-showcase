@@ -21,9 +21,6 @@
                     <li>
                         <a class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                     </li>
-                    <li>
-                        <a class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                    </li>
                 </ul>
             </div>
             <div class="flex items-center space-x-4">
@@ -31,6 +28,7 @@
                 {   
                     <ul class="flex space-x-6">
                         <li><a asp-controller="Dashboard" asp-action="Index" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Dashboard</a></li>
+                        <li><a asp-controller="Game" asp-action="Index" class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Game</a></li>
                         <li class="text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">
                             <form method="post" asp-controller="Account" asp-action="Logout" class="inline">
                                 <button type="submit" class="text-gray-700 hover:text-indigo-600">Logout</button>
@@ -56,8 +54,7 @@
     </main>
 
     <footer class="border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 text-center text-sm py-4">
-        &copy; 2025 - Showcase - 
-        <a class="text-indigo-600 dark:text-indigo-400 hover:underline" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        &copy; 2025 - Showcase 
     </footer>
 
     <script src="~/js/site.js" asp-append-version="true"></script>

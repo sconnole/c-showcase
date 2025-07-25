@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using c_showcase.Models.Game;
 
 public class ApplicationDbContext : IdentityDbContext
 {
@@ -7,4 +8,6 @@ public class ApplicationDbContext : IdentityDbContext
     {
 
     }
+
+    public DbSet<GameData> GameData { get; set; }
 }

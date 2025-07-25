@@ -1,0 +1,79 @@
+@model c_showcase.Models.Game.GameData;
+
+@{
+    ViewData["Title"] = "Resource Clicker";
+}
+
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 flex flex-col items-center justify-center p-6">
+    <h1 class="text-4xl font-bold mb-4">Resource Clicker</h1>
+
+    <p class="mb-4 text-lg">
+        Resources: <span id="resource-count" class="font-semibold">@Model.Resources</span>
+    </p>
+
+    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Click the orb to gather resources!</p>
+
+   <!-- SVG ICON--> 
+    <div id="resource" class="w-96 h-96 cursor-pointer hover:scale-110 transition-transform duration-200">
+        <svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+            <defs>
+            <radialGradient id="orbGradient" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="#a0f0ff"/>
+                <stop offset="50%" stop-color="#4fd1c5"/>
+                <stop offset="100%" stop-color="#1a202c"/>
+            </radialGradient>
+            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="12" result="blur" />
+                <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+            </defs>
+
+            <circle cx="96" cy="96" r="60" fill="url(#orbGradient)" filter="url(#glow)" stroke="#38b2ac" stroke-width="6" />
+            <circle cx="84" cy="84" r="12" fill="#ffffff" opacity="0.7"/>
+        </svg>
+    </div>
+
+
+
+    <div class="mt-8">
+        <h2 class="text-xl font-semibold mb-2">Upgrades</h2>
+        <ul class="text-sm text-gray-600 dark:text-gray-300">
+            <li>🛠️ Auto Clicker - Coming Soon</li>
+            <li>⚡ Speed Boost - Coming Soon</li>
+        </ul>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let resources = @Model.Resources;
+        let pendingClicks = 0;
+
+        document.getElementById("resource").addEventListener("click", () => {
+            pendingClicks += @Model.ResourcesPerClick;
+            resources += @Model.ResourcesPerClick;
+            document.getElementById("resource-count").innerText = resources;
+        });
+
+        setInterval(() => {
+            if (pendingClicks > 0) {
+                fetch('/Game/Save', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ clicks: pendingClicks })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    resources = data.resources;
+                    pendingClicks = 0;
+                    document.getElementById("resource-count").innerText = resources;
+                });
+            }
+        }, 5000);
+    </script>
+}
