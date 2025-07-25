@@ -33,7 +33,7 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    public IActionResult Register() => View(new RegisterViewModel());
+    public IActionResult Register() => View(new RegisterViewModel { Email = "", ConfirmPassword = "", Password = "" });
 
     [HttpPost]
     [ValidateAntiForgeryToken]

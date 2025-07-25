@@ -1,6 +1,6 @@
 public class DashboardViewModel
 {
-    public string Email { get; set; }
-    public string WelcomeMessage { get; set; }
-    public Dictionary<string, string> Stats { get; set; }
+    public required string Email { get; set; }
+    public required string WelcomeMessage { get; set; }
+    public required Dictionary<string, string> Stats { get; set; }
 }
