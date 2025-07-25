@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using c_showcase.Models.Game;
+using Microsoft.EntityFrameworkCore;
 
 public class GameController : Controller
 {
@@ -18,7 +19,9 @@ public class GameController : Controller
     public async Task<ActionResult> Index()
     {
         var user = await _userManager.GetUserAsync(User);
-        var gameData = _context.GameData.FirstOrDefault(g => g.UserId == user.Id);
+        var gameData = _context.GameData.Include(g => g.GameDataUpgrades)
+                    .ThenInclude(gdu => gdu.Upgrade)
+                    .FirstOrDefault(g => g.UserId == user.Id);
 
         if (gameData == null)
         {
@@ -26,11 +29,23 @@ public class GameController : Controller
             {
                 UserId = user.Id,
                 Resources = 0,
-                LastUpdated = DateTime.UtcNow
+                LastUpdated = DateTime.UtcNow,
+                GameDataUpgrades = new List<GameDataUpgrade>()
             };
-        }
 
-        return View(gameData);
+
+            _context.GameData.Add(gameData);
+            await _context.SaveChangesAsync();
+        }
+        
+        var availableUpgrades = await _context.Upgrades.ToListAsync();
+        var viewModel = new GameViewModel
+        {
+            GameData = gameData,
+            AvailableUpgrades = availableUpgrades
+        };
+
+        return View(viewModel);
     }
 
     [Authorize]

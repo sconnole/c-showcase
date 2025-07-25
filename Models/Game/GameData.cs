@@ -9,6 +9,8 @@ public class GameData
     public int ResourcesPerClick { get; set; } = 1;
     public int ResourcesPerSecond { get; set; } = 0;
 
+    public List<GameDataUpgrade> GameDataUpgrades { get; set; } = new();
+
     public void ClickResource()
     {
         Resources += ResourcesPerClick;

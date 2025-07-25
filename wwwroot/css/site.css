@@ -1,1 +1,28 @@
 @import "tailwindcss";
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(4rem);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
+}
+
+.float-up {
+  animation: floatUp 1s ease-out forwards;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  font-weight: bold;
+  font-size: 0.875rem;
+  color: #6366f1; 
+  z-index: 50;
+}
+
+.dark .float-up {
+  color: #a5b4fc; 
+}

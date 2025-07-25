@@ -1,4 +1,4 @@
-@model c_showcase.Models.Game.GameData;
+@model c_showcase.Models.Game.GameViewModel;
 
 @{
     ViewData["Title"] = "Orb Clicker";
@@ -10,57 +10,57 @@
         <div class="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 shadow space-y-4">
             <p>
                 <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 text-sm font-semibold px-2 py-1 rounded-full">
-                    <span id="orb-count">@Model.Resources</span>
+                    <span id="orb-count">@Model.GameData.Resources</span>
                 </span> 
                 Orbs
             </p>
             <p class="text-s">
-                <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 text-s font-semibold px-2 py-1 rounded-full">
-                    @Model.ResourcesPerClick
+                <span id="resources-per-click" class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 text-s font-semibold px-2 py-1 rounded-full">
+                    @Model.GameData.ResourcesPerClick
                 </span>
                 Orbs per click
             </p>
             <p>
                 <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 text-sm font-semibold px-2 py-1 rounded-full">
-                    @Model.ResourcesPerSecond
+                    @Model.GameData.ResourcesPerSecond
                 </span>
                 Orbs per second
             </p>
         </div>
 
-        <!-- CENTER: Orb Clicker -->
         <div class="flex flex-col items-center justify-center text-center space-y-6">
-            <h1 class="text-3xl font-bold text-indigo-700 dark:text-indigo-300 mb-2">Orb Clicker</h1>
+            <div id="click-effects" class="relative w-full h-0 pointer-events-none"></div>
             @Html.Partial("./Partials/_OrbIcon")
-
-            <p class="text-sm text-gray-600 dark:text-gray-400">
-                Click the orb to gain more orbs!
-            </p>
         </div>
 
-        <!-- RIGHT: Upgrades -->
         <div class="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 shadow space-y-4">
             <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wide">Upgrades</h2>
             <ul class="space-y-2 text-sm">
+            @foreach (var upgrade in Model.AvailableUpgrades)
+            {
                 <li class="bg-indigo-50 dark:bg-indigo-900 border border-indigo-200 dark:border-indigo-700 p-2 rounded shadow">
-                    🛠️ Auto Orb Generator — Coming Soon
+                    <strong>@upgrade.Name</strong> — +@upgrade.ResourcesPerSecond/sec
                 </li>
-                <li class="bg-indigo-50 dark:bg-indigo-900 border border-indigo-200 dark:border-indigo-700 p-2 rounded shadow">
-                    ⚡ Orb Speed Boost — Coming Soon
-                </li>
+            }
+
+            @if (!Model.GameData.GameDataUpgrades.Any())
+            {
+                <li class="text-gray-500 dark:text-gray-400 italic">No upgrades unlocked yet.</li>
+            }
             </ul>
+
         </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        let orbs = @Model.Resources;
+        let orbs = @Model.GameData.Resources;
         let pendingClicks = 0;
 
-        document.getElementById("resource").addEventListener("click", () => {
-            pendingClicks += @Model.ResourcesPerClick;
-            orbs += @Model.ResourcesPerClick;
+        document.getElementById("orb-icon").addEventListener("click", () => {
+            pendingClicks += @Model.GameData.ResourcesPerClick;
+            orbs += @Model.GameData.ResourcesPerClick;
             document.getElementById("orb-count").innerText = orbs;
         });
 
@@ -81,5 +81,19 @@
                 });
             }
         }, 5000);
+
+        document.getElementById('orb-icon').addEventListener('click', () => {
+            const effectsContainer = document.getElementById('click-effects');
+            const amount = parseInt(document.getElementById('resources-per-click')?.textContent || "1");
+
+            const effect = document.createElement('div');
+            effect.textContent = `+${amount}`;
+            effect.className = 'float-up';
+            effectsContainer.appendChild(effect);
+
+            setTimeout(() => {
+                effect.remove();
+            }, 1000);
+        });
     </script>
 }
