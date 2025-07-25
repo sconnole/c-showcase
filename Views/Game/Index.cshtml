@@ -1,61 +1,67 @@
 @model c_showcase.Models.Game.GameData;
 
 @{
-    ViewData["Title"] = "Resource Clicker";
+    ViewData["Title"] = "Orb Clicker";
 }
 
-<div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 flex flex-col items-center justify-center p-6">
-    <h1 class="text-4xl font-bold mb-4">Resource Clicker</h1>
+<div class="min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-100 p-4 transition-colors">
+    <div class="grid grid-cols-[1fr_2fr_1fr] gap-4 max-w-7xl mx-auto">
 
-    <p class="mb-4 text-lg">
-        Resources: <span id="resource-count" class="font-semibold">@Model.Resources</span>
-    </p>
+        <div class="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 shadow space-y-4">
+            <p>
+                <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 text-sm font-semibold px-2 py-1 rounded-full">
+                    <span id="orb-count">@Model.Resources</span>
+                </span> 
+                Orbs
+            </p>
+            <p class="text-s">
+                <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 text-s font-semibold px-2 py-1 rounded-full">
+                    @Model.ResourcesPerClick
+                </span>
+                Orbs per click
+            </p>
+            <p>
+                <span class="inline-block bg-indigo-100 dark:bg-indigo-900 text-indigo-800 dark:text-indigo-300 text-sm font-semibold px-2 py-1 rounded-full">
+                    @Model.ResourcesPerSecond
+                </span>
+                Orbs per second
+            </p>
+        </div>
 
-    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Click the orb to gather resources!</p>
+        <!-- CENTER: Orb Clicker -->
+        <div class="flex flex-col items-center justify-center text-center space-y-6">
+            <h1 class="text-3xl font-bold text-indigo-700 dark:text-indigo-300 mb-2">Orb Clicker</h1>
+            @Html.Partial("./Partials/_OrbIcon")
 
-   <!-- SVG ICON--> 
-    <div id="resource" class="w-96 h-96 cursor-pointer hover:scale-110 transition-transform duration-200">
-        <svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
-            <defs>
-            <radialGradient id="orbGradient" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="#a0f0ff"/>
-                <stop offset="50%" stop-color="#4fd1c5"/>
-                <stop offset="100%" stop-color="#1a202c"/>
-            </radialGradient>
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-                <feGaussianBlur stdDeviation="12" result="blur" />
-                <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-                </feMerge>
-            </filter>
-            </defs>
+            <p class="text-sm text-gray-600 dark:text-gray-400">
+                Click the orb to gain more orbs!
+            </p>
+        </div>
 
-            <circle cx="96" cy="96" r="60" fill="url(#orbGradient)" filter="url(#glow)" stroke="#38b2ac" stroke-width="6" />
-            <circle cx="84" cy="84" r="12" fill="#ffffff" opacity="0.7"/>
-        </svg>
-    </div>
-
-
-
-    <div class="mt-8">
-        <h2 class="text-xl font-semibold mb-2">Upgrades</h2>
-        <ul class="text-sm text-gray-600 dark:text-gray-300">
-            <li>🛠️ Auto Clicker - Coming Soon</li>
-            <li>⚡ Speed Boost - Coming Soon</li>
-        </ul>
+        <!-- RIGHT: Upgrades -->
+        <div class="bg-white dark:bg-gray-800 border dark:border-gray-700 rounded-xl p-4 shadow space-y-4">
+            <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-300 uppercase tracking-wide">Upgrades</h2>
+            <ul class="space-y-2 text-sm">
+                <li class="bg-indigo-50 dark:bg-indigo-900 border border-indigo-200 dark:border-indigo-700 p-2 rounded shadow">
+                    🛠️ Auto Orb Generator — Coming Soon
+                </li>
+                <li class="bg-indigo-50 dark:bg-indigo-900 border border-indigo-200 dark:border-indigo-700 p-2 rounded shadow">
+                    ⚡ Orb Speed Boost — Coming Soon
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 
 @section Scripts {
     <script>
-        let resources = @Model.Resources;
+        let orbs = @Model.Resources;
         let pendingClicks = 0;
 
         document.getElementById("resource").addEventListener("click", () => {
             pendingClicks += @Model.ResourcesPerClick;
-            resources += @Model.ResourcesPerClick;
-            document.getElementById("resource-count").innerText = resources;
+            orbs += @Model.ResourcesPerClick;
+            document.getElementById("orb-count").innerText = orbs;
         });
 
         setInterval(() => {
@@ -69,9 +75,9 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    resources = data.resources;
+                    orbs = data.resources;
                     pendingClicks = 0;
-                    document.getElementById("resource-count").innerText = resources;
+                    document.getElementById("orb-count").innerText = orbs;
                 });
             }
         }, 5000);

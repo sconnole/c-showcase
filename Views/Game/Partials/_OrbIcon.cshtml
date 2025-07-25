@@ -1,0 +1,24 @@
+<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">Click the orb to gather resources!</p>
+
+<!-- SVG ICON--> 
+<div id="resource" class="w-96 h-96 cursor-pointer hover:scale-110 transition-transform duration-200">
+    <svg viewBox="0 0 192 192" xmlns="http://www.w3.org/2000/svg" class="w-full h-full">
+        <defs>
+        <radialGradient id="orbGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stop-color="#a0f0ff"/>
+            <stop offset="50%" stop-color="#4fd1c5"/>
+            <stop offset="100%" stop-color="#1a202c"/>
+        </radialGradient>
+        <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="12" result="blur" />
+            <feMerge>
+            <feMergeNode in="blur" />
+            <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+        </defs>
+
+        <circle cx="96" cy="96" r="60" fill="url(#orbGradient)" filter="url(#glow)" stroke="#38b2ac" stroke-width="6" />
+        <circle cx="84" cy="84" r="12" fill="#ffffff" opacity="0.7"/>
+    </svg>
+</div>
