@@ -19,6 +19,11 @@ public class GameController : Controller
     public async Task<ActionResult> Index()
     {
         var user = await _userManager.GetUserAsync(User);
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+
         var gameData = _context.GameData.Include(g => g.GameDataUpgrades)
                     .ThenInclude(gdu => gdu.Upgrade)
                     .FirstOrDefault(g => g.UserId == user.Id);
@@ -53,8 +58,12 @@ public class GameController : Controller
     public async Task<ActionResult> Save([FromBody] ClickUpdate update)
     {
         var user = await _userManager.GetUserAsync(User);
-        var gameData = _context.GameData.FirstOrDefault(g => g.UserId == user.Id);
+        if (user == null)
+        {
+            return RedirectToAction("Login", "Account");
+        }
 
+        var gameData = _context.GameData.FirstOrDefault(g => g.UserId == user.Id);
         if (gameData == null)
         {
             return NotFound();
@@ -65,6 +74,4 @@ public class GameController : Controller
 
         return Json(new { resources = gameData.Resources }); 
     }
-
-    // upgrade
 }

@@ -1,6 +1,6 @@
 namespace c_showcase.Models.Game;
 public class GameViewModel
 {
-    public GameData GameData { get; set; }
-    public List<Upgrade> AvailableUpgrades { get; set; }
+    public required GameData GameData { get; set; }
+    public required List<Upgrade> AvailableUpgrades { get; set; }
 }
